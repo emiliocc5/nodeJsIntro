@@ -1,12 +1,24 @@
-const express = require("express");
+const express = require('express');
 
-var http = require("http");
-var url = require("url");
-var querystring = require("querystring");
-var log = require("./modules/log"); //Importación total
-var { countries } = require ("countries-list"); //Importacion parcial
+const log = require('./modules/log'); //Importación total
+const { countries } = require('countries-list'); //Importacion parcial
 
-var server = http.createServer(function(request, response) {
+const app = express();
+
+app.get('/', function(request, response) {
+  response.status(200).send('HELLO');
+});
+
+app.get('/info', function(request, response) {
+  log.info('Info');
+  response.send('info nodemon');
+});
+
+app.get('#', function(request, response) {
+  response.status(404).send('NOT FOUND');
+});
+
+/* var server = http.createServer(function(request, response) {
   var parsed = url.parse(request.url);
   console.log("parsed: ", parsed);
   
@@ -42,8 +54,8 @@ var server = http.createServer(function(request, response) {
     response.write("<html><body><p>NOT FOUND</p></body></html>");
     response.end();
   }
+}); */
+
+app.listen(4000, function() {
+  console.log('Running on port: 4000');
 });
-
-server.listen(4000);
-
-console.log("Runing on 4000");
